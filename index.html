@@ -13,11 +13,9 @@
                 setInterval(function () {
                     createRow(getNewMessage());
                 }, 5000);
-                var sorter = tsorter.create('emailTable');
             };
 
             function createTable() {
-                console.log(geemails);
                 for (var i = 0; i < geemails.length; i++) {
                     createRow(geemails[i]);
                 }
@@ -46,12 +44,6 @@
             function updateCounter() {
                 $('#counterSpan').html(counter + ' messages');
             }
-            
-            function getDate(date){
-                if(date != null){
-                    
-                }
-            }
         </script>
     </head>
     <body>
@@ -60,8 +52,8 @@
                 <thead>
                     <tr>
                         <th>Date</th> 
-                        <th data-tsorter="input-text">Subject</th>
-                        <th data-tsorter="input-text">Sender</th>
+                        <th>Subject</th>
+                        <th>Sender</th>
                     </tr>
                 </thead>
                 <tbody>
