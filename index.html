@@ -1,26 +1,75 @@
+<!DOCTYPE html>
 <html>
-	<head>
-		<script src="js/mail-generator.js"></script>
-		<link href="css/style.css" rel="stylesheet" media="screen">
-    <script>
-      window.onload = function(){
-        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
-        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
+    <head>
+        <title>GeeMails</title>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src="js/tsorter.min.js" type="text/javascript"></script>
+        <script src="js/mail-generator.js"></script>
+        <link href="css/style.css" rel="stylesheet" media="screen">
+        <script>
+            window.onload = function () {
+                window.counter = 0;
+                createTable();
+                setInterval(function () {
+                    createRow(getNewMessage());
+                }, 5000);
+                var sorter = tsorter.create('emailTable');
+            };
 
+            function createTable() {
+                console.log(geemails);
+                for (var i = 0; i < geemails.length; i++) {
+                    createRow(geemails[i]);
+                }
+            }
 
-        
-      };
-    </script>
-	</head>
-	<body>
-		<div class="container" id="main">
-			<title>GeeMail</title>
-				<table>
-				<th>Date</th>
-				<th>Subject</th>
-				<th>Sender</th>
-				</table>
-		</div>
-		<div class="content" id="list">
-	</body>
+            function createRow(email) {
+                $("#emailTable").find('tbody')
+                        .append($('<tr>')
+                                .append($('<td>')
+                                        .append(email['date']))
+                                .append($('<td>')
+                                        .append(email['subject']))
+                                .append($('<td>')
+                                        .append(email['sender']))
+                                .on('click', function () {
+                                    showEmailBody(email['body']);
+                                }));
+                counter++;
+                updateCounter();
+            }
+
+            function showEmailBody(text) {
+                $('#emailBody').html(text);
+            }
+
+            function updateCounter() {
+                $('#counterSpan').html(counter + ' messages');
+            }
+            
+            function getDate(date){
+                if(date != null){
+                    
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container" id="main">
+            <table id="emailTable" border="1">
+                <thead>
+                    <tr>
+                        <th>Date</th> 
+                        <th data-tsorter="input-text">Subject</th>
+                        <th data-tsorter="input-text">Sender</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+            <span id="counterSpan"></span>
+            <p id="emailBody"></p>
+        </div>
+    </body>
 </html>
